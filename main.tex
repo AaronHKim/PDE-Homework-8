@@ -10,8 +10,8 @@
 \newcommand{\mathsym}[1]{{}}
 \newcommand{\unicode}[1]{{}}
 
-\newcommand\course{Graduate Modelling 2 MAT 5460}
-\newcommand\hwnumber{5}
+\newcommand\course{PDE}
+\newcommand\hwnumber{9}
 \newcommand\userID{Aaron Kim}
 \def\changemargin#1#2{\list{}{\rightmargin#2\leftmargin#1}\item[]}
 \let\endchangemargin=\endlist 
@@ -25,26 +25,12 @@
 
 
 \begin{document}
-\section*{Problem 26}
+\section*{Problem 1}
 
-Show that the Casoratian $W(n)$ given by:
-\begin{equation}\label{eq:cassoratian}
-    W(n) = \left|\begin{matrix}
-        x_1(n) & x_2(n) &  \cdots & x_k(n) \\
-        x_1(n+1) & x_2(n+1) & \cdots & x_k(n+1)\\
-        \vdots & & & \vdots\\
-        x_1(n+k-1) & x_2 (n+k-1) & \cdots & x_k(n+k-1)
-    \end{matrix}\right|
-\end{equation}
-may be given by the formula:
-\begin{equation*}
-    W(n) = \left|\begin{matrix}
-        x_1(n) & x_2(n) & \cdots & x_k(n)\\
-        \Delta x_1(n) & \Delta x_2(n) & \cdots & \Delta x_k(n)\\
-        \vdots & & & \vdots \\
-        \Delta^{k-1}x_1(n) & \Delta^{k-1} x_2 (n) & \cdots & \Delta^{k-1} x_k(n)
-    \end{matrix}\right|
-\end{equation*}
+Consider a thin tube of water in the shape of a ring of circumference $2l$.
+If $u(x, t)$ is the concentration of a chemical in the water $x$ units along the ring from a reference
+point $x = 0$ then u solves the IBVP $u_t = Du_{xx}$ for $0 < x < 2l$ and $t > 0$, $u(0, t) = u(2l, t)$
+and $u_x(0, t) = u_x(2l, t)$ for $t > 0$, $u(x, 0) = \phi(x)$ for $0 < x < 2l$.
 
 
 
