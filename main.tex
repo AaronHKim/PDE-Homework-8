@@ -1,0 +1,290 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage{preamble}
+\usepackage{siunitx}
+\usepackage{adjustbox}
+\usepackage{enumitem}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%% Edit These for yourself
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\mathsym}[1]{{}}
+\newcommand{\unicode}[1]{{}}
+
+\newcommand\course{Graduate Modelling 2 MAT 5460}
+\newcommand\hwnumber{5}
+\newcommand\userID{Aaron Kim}
+\def\changemargin#1#2{\list{}{\rightmargin#2\leftmargin#1}\item[]}
+\let\endchangemargin=\endlist 
+
+\theoremstyle{definition}
+\newtheorem*{thm}{Theorem}
+
+\renewcommand\thesection{\arabic{section}}
+\renewcommand\thesubsection{\thesection.\arabic{subsection}}
+
+
+
+\begin{document}
+\section*{Problem 26}
+
+Show that the Casoratian $W(n)$ given by:
+\begin{equation}\label{eq:cassoratian}
+    W(n) = \left|\begin{matrix}
+        x_1(n) & x_2(n) &  \cdots & x_k(n) \\
+        x_1(n+1) & x_2(n+1) & \cdots & x_k(n+1)\\
+        \vdots & & & \vdots\\
+        x_1(n+k-1) & x_2 (n+k-1) & \cdots & x_k(n+k-1)
+    \end{matrix}\right|
+\end{equation}
+may be given by the formula:
+\begin{equation*}
+    W(n) = \left|\begin{matrix}
+        x_1(n) & x_2(n) & \cdots & x_k(n)\\
+        \Delta x_1(n) & \Delta x_2(n) & \cdots & \Delta x_k(n)\\
+        \vdots & & & \vdots \\
+        \Delta^{k-1}x_1(n) & \Delta^{k-1} x_2 (n) & \cdots & \Delta^{k-1} x_k(n)
+    \end{matrix}\right|
+\end{equation*}
+
+
+
+\textbf{Attempt:}
+\begin{changemargin}{.5cm}{0cm}
+
+We know by definition that,  $\Delta x_i(n)=x_i(n+1)- x_i(n)$ , and that $\Delta x_i(n+k-1)=x_i(n+k)-x_i(n+k-1)$. We also know that $E= \Delta + I$, where $x_i(n+k-1) = E^{k-1}x_i(n) =\sum_{i=0}^{k-1} (-1)^{k-1} {k-1 \choose i} \Delta^{k-1-i}x(n)$. Then we can rewrite (\ref{eq:cassoratian}) as:
+
+\begin{equation*}
+    W(n) = \left|\begin{matrix}
+        x_1(n) & x_2(n) &  \cdots & x_k(n) \\
+        Ex_1(n) & Ex_2(n) & \cdots & Ex_k(n)\\
+        \vdots & & & \vdots\\
+        E^{k-1}x_1(n) & E^{k-1}x_2 (n) & \cdots & E^{k-1}x_k(n)
+    \end{matrix}\right|
+\end{equation*}
+
+We can observe that for the $(2\times2)$ case:
+\begin{equation*}
+    W(n) = \left|\begin{matrix}
+        x_1(n) & x_2(n)  \\
+        Ex_1(n) & Ex_2(n) 
+    \end{matrix}\right|= \left|\begin{matrix}
+        x_1(n) & x_2(n)  \\
+        \Delta x_1(n)+x_1(n) & \Delta x_2(n) +x_2(n)
+    \end{matrix}\right|
+\end{equation*}
+Where it is clear that the repeated term in each row $x_1(n)$ and $x_2(n)$ will cancel i.e. using the row operation $R_2-R_1 \rightarrow R_2$ we get: 
+\begin{equation*}
+    W(n) = \left|\begin{matrix}
+        x_1(n) & x_2(n)  \\
+        Ex_1(n) & Ex_2(n) 
+    \end{matrix}\right|= \left|\begin{matrix}
+        x_1(n) & x_2(n)  \\
+        \Delta x_1(n) & \Delta x_2(n) 
+    \end{matrix}\right|
+\end{equation*}
+Similarly for the $(3\times3)$ we get: \begin{align*}
+    W(n) &= \left|\begin{matrix}
+        x_1(n) & x_2(n) & x_3(n) \\
+        Ex_1(n) & Ex_2(n) & Ex_3(n)\\
+        E^2x_1(n) & E^2x_2(n) & E^2x_3(n)
+    \end{matrix}\right|\\
+    &= \left|\begin{matrix}
+         x_1(n) & x_2(n) & x_3(n) \\
+        \Delta x_1(n) + x_1(n) & \Delta x_2(n)+ x_2(n) & \Delta x_3(n)+ x_3(n)\\
+        \Delta^2 x_1(n)+ 2\Delta x_1(n) + x_1(n) & \cdots & \Delta^2 x_3(n)+ 2\Delta x_3(n) + x_3(n)
+    \end{matrix}\right|
+\end{align*}
+So if we then perform the row operations again as before, $R_2-R_1 \rightarrow R_2$, $R_3-R_1 \rightarrow R_3$:
+\begin{align*}
+    \left|\begin{matrix}
+         x_1(n) & x_2(n) & x_3(n) \\
+        \Delta x_1(n)  & \Delta x_2(n)& \Delta x_3(n)\\
+        \Delta^2 x_1(n)+ 2\Delta x_1(n)  & \cdots & \Delta^2 x_3(n)+ 2\Delta x_3(n) 
+    \end{matrix}\right|
+\end{align*}
+And we can then perform a similar row operation from $R_3-2R_2 \rightarrow R_3$
+\begin{align*}
+    \left|\begin{matrix}
+         x_1(n) & x_2(n) & x_3(n) \\
+        \Delta x_1(n)  & \Delta x_2(n)& \Delta x_3(n)\\
+        \Delta^2 x_1(n)  & \cdots & \Delta^2 x_3(n) 
+    \end{matrix}\right|
+\end{align*}
+\end{changemargin}
+
+And in general, we can perform these row ops up to $k-1$ from the summation $sum_{i=0}^{k-1} (-1)^{k-1} {k-1 \choose i} \Delta^{k-1-i}x(n)$, since each row term will cancel a multiple of the one before it, except the first term, $\Delta^{k-1} x_i(n)$, so that we get the final form:
+
+\begin{equation*}
+    W(n) = \left|\begin{matrix}
+        x_1(n) & x_2(n) & \cdots & x_k(n)\\
+        \Delta x_1(n) & \Delta x_2(n) & \cdots & \Delta x_k(n)\\
+        \vdots & & & \vdots \\
+        \Delta^{k-1}x_1(n) & \Delta^{k-1} x_2 (n) & \cdots & \Delta^{k-1} x_k(n)
+    \end{matrix}\right|
+\end{equation*}
+
+\newpage
+
+\section*{Problem 27}
+
+Consider the second order difference equation 
+\begin{equation*}
+    u(n+2) - \dfrac{n+3}{n+2}u(n+1) + \dfrac{2}{n+2}u(n) = 0
+\end{equation*}
+
+\begin{enumerate}[label = (\alph*)]
+    \item show that $\displaystyle u_1(n)= \dfrac{2^n}{n!}$ is a solution of the equation.
+    \item Use the above formula to find another solution $u_2(n)$ of the equation.
+\end{enumerate}
+
+\textbf{Attempt:}
+\begin{changemargin}{.5cm}{0cm}
+
+\begin{enumerate}[label=(\alph*)]
+    \item To check that this is a solution: \begin{align*}
+        &=\dfrac{2^{n+2}}{(n+2)!} - \dfrac{n+3}{n+2}\dfrac{2^{n+1}}{(n+1)!} + \dfrac{2}{n+2}\dfrac{2^n}{n!}\\
+        &=\dfrac{2^{n+2}}{(n+2)!} - \dfrac{(n+3)2^{n+1}}{(n+2)!} + \dfrac{2^{n+1}(n+1)}{(n+2)!}\\
+        &=\dfrac{2^{n+1}}{(n+2)!} \left(2- (n+3) + n+1\right)\\
+        &=\dfrac{2^{n+1}}{(n+2)!}(0)\\
+        &=0
+    \end{align*}
+    So we know that this is a solution for our equation.
+    \item We know from the notes that, if $u_1$ and $u_2$ are solutions of the equation and $W(n)$ is their Casoratian, then: 
+    \begin{equation*}
+        u_2(n) = u_1(n) \left[\sum_{r=0}^{n-1}\frac{W(r)}{u_1(r)u_1(r+1)} \right]
+    \end{equation*}
+    is a solution to this equation. Using Abel's lemma,
+    
+    \fbox{\begin{minipage}{\textwidth}\textbf{Abel's Lemma:} 
+
+Let $x_1(n),x_2(n),\ldots,x_k(n)$ be solutions of:
+\begin{equation*}
+    x(n+k)+p_1(n)x(n+k-1)+\cdots+p_k(n)x(n)=0
+\end{equation*} and let $W(n)$ be their Casoratian. Then, for $n\geq n_0$,
+\begin{equation*}
+    W(n) = (-1)^{k(n-n_0)}\left(\prod_{i=n_0}^{n-1}p_k(i) \right)W(n_0)
+\end{equation*}
+
+\end{minipage}}
+    
+    
+    If we choose a constant $W(r_0)=1$:
+    \begin{equation*}
+        W(r) = (-1)^{2(r-r_0)}\left(\prod_{i=r_0}^{r-1}p_2(i) \right)
+    \end{equation*}
+    Then we know the form of our polynomial has two coefficients, $k=1,k=2$. If we choose $k=2$ we know that an even number times any other number will be even, the term $(-1)^{2(r-r_0)}=1$, giving us:
+    \begin{equation*}
+        W(r) =\left(\prod_{i=r_0}^{r-1}\dfrac{2}{i+2} \right)
+    \end{equation*}
+    So this gives us:
+    \begin{equation*}
+        u_2(n) = \dfrac{2^n}{n!} \left[\sum_{r=0}^{n-1}\frac{\left(\prod_{i=0}^{r-1}\dfrac{2}{i+2} \right)}{\left(\dfrac{2^r}{r!}\right)\left(\dfrac{2^{r+1}}{(r+1)!}\right)} \right]
+    \end{equation*}
+    \begin{equation*}
+        u_2(n) = \dfrac{2^n}{n!} \left[\sum_{r=0}^{n-1}\frac{\left(\dfrac{2^{r}}{(r+1)!} \right)}{\left(\dfrac{2^r}{r!}\right)\left(\dfrac{2^{r+1}}{(r+1)!}\right)} \right]
+    \end{equation*}
+    \begin{equation*}
+        u_2(n) = \dfrac{2^n}{n!} \left[\sum_{r=0}^{n-1}\dfrac{r!}{2^{r+1}} \right]
+    \end{equation*}
+\end{enumerate}
+
+\end{changemargin}
+\newpage
+
+
+\section*{Problem 28}
+
+Write the general solution of the difference equation:
+\begin{equation*}
+    (E-3)^2(E^2+4)x(n)=0
+\end{equation*}
+
+
+
+\textbf{Attempt:}
+
+    \begin{changemargin}{.5cm}{0cm}
+        We can rewrite the above as:
+        \begin{equation*}
+            (\lambda-3)^2(\lambda^2+4)=0
+        \end{equation*}
+        The characteristic rots give us the general solution:
+        \begin{align*}
+            x(n) = a_03^n + a_1n3^n + b_1(2i)^n+b_2(-2i)^n
+        \end{align*}
+
+        
+    \end{changemargin}
+
+
+
+
+
+\newpage
+
+%
+
+\section*{Problem 29}
+
+Find a homogenous difference equation whose solution is:
+\begin{equation*}
+    y(n) = 2^{n-1}-5^{n+1}
+\end{equation*}
+
+
+\textbf{Attempt:}
+
+\begin{changemargin}{.5cm}{0cm}
+    We know that the solution to our equation is given above as:
+    \begin{equation}\label{eq:p29}
+       y(n) = 2^{n-1}-5^{n+1}
+    \end{equation}
+    Then we know also that the solution should have the form:
+    \begin{equation*}
+        y(n) = a_1(\lambda_1)^n+a_2(\lambda_2)^n 
+    \end{equation*}
+    So we know that we can rewrite (\ref{eq:p29}) as:
+    \begin{equation*}
+        y(n)=\left(\dfrac{1}{2}\right)^2(2)^n + (-5)(5)^n
+    \end{equation*}
+    Then $\lambda_1 = 2$, and $\lambda_2 = 5$, and we can get the difference equation:
+    \begin{equation*}
+        (E-2)(E-5)x(n)=0
+    \end{equation*}
+\end{changemargin}
+
+\newpage
+
+\section*{Problem 30}
+
+Find a particular solution of the difference equation:
+\begin{equation*}
+    x(n+2)-5x(n+1)+4x(n)=4^n-n^2
+\end{equation*}
+
+
+    
+  \textbf{Attempt:}
+    \begin{changemargin}{.5cm}{0cm}
+    
+    We can rewrite the above as:
+    \begin{equation*}
+        (E^2-5E+4)(x(n)=4^n-n^2
+    \end{equation*}
+    \begin{equation*}
+        (E-4)(E-1)x(n)=4^n-n^2
+    \end{equation*}
+    
+    So this gives us:
+    \begin{equation*}
+        \lambda_1=4,\lambda_2=1
+    \end{equation*}
+    Which gives us :
+    \begin{equation*}
+    y_c(n)=c_1(4)^n + c_2(1)^n    
+    \end{equation*}
+    we know that $g(n) = 4^n - n^2$, and we know that $(E-4)$ annihilates $4^n$, so we have at least one $\lambda_1 = \mu_1$ so we are in case 2. To annihilate $n^2$
+    \end{changemargin}
+
+
+\end{document}
